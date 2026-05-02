@@ -1,7 +1,21 @@
 
 
+## Roll protocol to r1624250 — _2026-05-02T05:22:23.000Z_
+######  Diff: [`470fb6a...0e0ce12`](https://github.com/ChromeDevTools/devtools-protocol/compare/470fb6a...0e0ce12)
+
+```diff
+@@ domains/Page.pdl:168 @@ domain Page
+       sub-apps
+       summarizer
+       sync-xhr
++      tools
+       translator
+       unload
+       usb
+```
+
 ## Roll protocol to r1621552 — _2026-04-28T05:34:17.000Z_
-######  Diff: [`e0946be...0a44e87`](https://github.com/ChromeDevTools/devtools-protocol/compare/e0946be...0a44e87)
+######  Diff: [`e0946be...470fb6a`](https://github.com/ChromeDevTools/devtools-protocol/compare/e0946be...470fb6a)
 
 ```diff
 @@ domains/DOM.pdl:44 @@ domain DOM
@@ -42882,87 +42896,4 @@ index 4754f17c..8dad9c98 100644
  
    # TODO(crbug.com/1458532): Add other Attribution Reporting events, e.g.
    # trigger registration.
-```
-
-## Roll protocol to r1166296 — _2023-07-06T04:28:50.000Z_
-######  Diff: [`02fc905...f3b3b51`](https://github.com/ChromeDevTools/devtools-protocol/compare/02fc905...f3b3b51)
-
-```diff
-@@ browser_protocol.pdl:1562 @@ experimental domain CSS
-       ContainerRule
-       LayerRule
-       ScopeRule
-+      StyleRule
- 
-   # CSS coverage information.
-   type RuleUsage extends object
-@@ -9655,6 +9656,69 @@ experimental domain Storage
-       # If enabled, noise is suppressed and reports are sent immediately.
-       boolean enabled
- 
-+  # Enables/disables issuing of Attribution Reporting events.
-+  experimental command setAttributionReportingTracking
-+    parameters
-+      boolean enable
-+
-+  experimental type AttributionReportingSourceType extends string
-+    enum
-+      navigation
-+      event
-+
-+  experimental type UnsignedInt64AsBase10 extends string
-+  experimental type UnsignedInt128AsBase16 extends string
-+  experimental type SignedInt64AsBase10 extends string
-+
-+  experimental type AttributionReportingFilterDataEntry extends object
-+    properties
-+      string key
-+      array of string values
-+
-+  experimental type AttributionReportingAggregationKeysEntry extends object
-+    properties
-+      string key
-+      UnsignedInt128AsBase16 value
-+
-+  experimental type AttributionReportingSourceRegistration extends object
-+    properties
-+      Network.TimeSinceEpoch time
-+      # duration in seconds
-+      optional integer expiry
-+      # duration in seconds
-+      optional integer eventReportWindow
-+      # duration in seconds
-+      optional integer aggregatableReportWindow
-+      AttributionReportingSourceType type
-+      string sourceOrigin
-+      string reportingOrigin
-+      array of string destinationSites
-+      UnsignedInt64AsBase10 eventId
-+      SignedInt64AsBase10 priority
-+      array of AttributionReportingFilterDataEntry filterData
-+      array of AttributionReportingAggregationKeysEntry aggregationKeys
-+      optional UnsignedInt64AsBase10 debugKey
-+
-+  experimental type AttributionReportingSourceRegistrationResult extends string
-+    enum
-+      success
-+      internalError
-+      insufficientSourceCapacity
-+      insufficientUniqueDestinationCapacity
-+      excessiveReportingOrigins
-+      prohibitedByBrowserPolicy
-+      successNoised
-+      destinationReportingLimitReached
-+      destinationGlobalLimitReached
-+      destinationBothLimitsReached
-+
-+  # TODO(crbug.com/1458532): Add other Attribution Reporting events, e.g.
-+  # trigger registration.
-+  experimental event attributionReportingSourceRegistered
-+    parameters
-+      AttributionReportingSourceRegistration registration
-+      AttributionReportingSourceRegistrationResult result
-+
- # The SystemInfo domain defines methods and events for querying low-level system information.
- experimental domain SystemInfo
 ```
