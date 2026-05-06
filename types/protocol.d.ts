@@ -5869,6 +5869,7 @@ export namespace Protocol {
             FontFace = 'font-face',
             FontFeatureValues = 'font-feature-values',
             FontPaletteValues = 'font-palette-values',
+            CounterStyle = 'counter-style',
         }
 
         export const enum CSSAtRuleSubsection {
@@ -5887,7 +5888,7 @@ export namespace Protocol {
             /**
              * Type of at-rule.
              */
-            type: ('font-face' | 'font-feature-values' | 'font-palette-values');
+            type: ('font-face' | 'font-feature-values' | 'font-palette-values' | 'counter-style');
             /**
              * Subsection of font-feature-values, if this is a subsection.
              */
@@ -14006,7 +14007,7 @@ export namespace Protocol {
          * A fetch result for a device bound session creation or refresh.
          * @experimental
          */
-        export type DeviceBoundSessionFetchResult = ('Success' | 'KeyError' | 'SigningError' | 'ServerRequestedTermination' | 'InvalidSessionId' | 'InvalidChallenge' | 'TooManyChallenges' | 'InvalidFetcherUrl' | 'InvalidRefreshUrl' | 'TransientHttpError' | 'ScopeOriginSameSiteMismatch' | 'RefreshUrlSameSiteMismatch' | 'MismatchedSessionId' | 'MissingScope' | 'NoCredentials' | 'SubdomainRegistrationWellKnownUnavailable' | 'SubdomainRegistrationUnauthorized' | 'SubdomainRegistrationWellKnownMalformed' | 'SessionProviderWellKnownUnavailable' | 'RelyingPartyWellKnownUnavailable' | 'FederatedKeyThumbprintMismatch' | 'InvalidFederatedSessionUrl' | 'InvalidFederatedKey' | 'TooManyRelyingOriginLabels' | 'BoundCookieSetForbidden' | 'NetError' | 'ProxyError' | 'EmptySessionConfig' | 'InvalidCredentialsConfig' | 'InvalidCredentialsType' | 'InvalidCredentialsEmptyName' | 'InvalidCredentialsCookie' | 'PersistentHttpError' | 'RegistrationAttemptedChallenge' | 'InvalidScopeOrigin' | 'ScopeOriginContainsPath' | 'RefreshInitiatorNotString' | 'RefreshInitiatorInvalidHostPattern' | 'InvalidScopeSpecification' | 'MissingScopeSpecificationType' | 'EmptyScopeSpecificationDomain' | 'EmptyScopeSpecificationPath' | 'InvalidScopeSpecificationType' | 'InvalidScopeIncludeSite' | 'MissingScopeIncludeSite' | 'FederatedNotAuthorizedByProvider' | 'FederatedNotAuthorizedByRelyingParty' | 'SessionProviderWellKnownMalformed' | 'SessionProviderWellKnownHasProviderOrigin' | 'RelyingPartyWellKnownMalformed' | 'RelyingPartyWellKnownHasRelyingOrigins' | 'InvalidFederatedSessionProviderSessionMissing' | 'InvalidFederatedSessionWrongProviderOrigin' | 'InvalidCredentialsCookieCreationTime' | 'InvalidCredentialsCookieName' | 'InvalidCredentialsCookieParsing' | 'InvalidCredentialsCookieUnpermittedAttribute' | 'InvalidCredentialsCookieInvalidDomain' | 'InvalidCredentialsCookiePrefix' | 'InvalidScopeRulePath' | 'InvalidScopeRuleHostPattern' | 'ScopeRuleOriginScopedHostPatternMismatch' | 'ScopeRuleSiteScopedHostPatternMismatch' | 'SigningQuotaExceeded' | 'InvalidConfigJson' | 'InvalidFederatedSessionProviderFailedToRestoreKey' | 'FailedToUnwrapKey' | 'SessionDeletedDuringRefresh');
+        export type DeviceBoundSessionFetchResult = ('Success' | 'KeyError' | 'SigningError' | 'TransientSigningError' | 'ServerRequestedTermination' | 'InvalidSessionId' | 'InvalidChallenge' | 'TooManyChallenges' | 'InvalidFetcherUrl' | 'InvalidRefreshUrl' | 'TransientHttpError' | 'ScopeOriginSameSiteMismatch' | 'RefreshUrlSameSiteMismatch' | 'MismatchedSessionId' | 'MissingScope' | 'NoCredentials' | 'SubdomainRegistrationWellKnownUnavailable' | 'SubdomainRegistrationUnauthorized' | 'SubdomainRegistrationWellKnownMalformed' | 'SessionProviderWellKnownUnavailable' | 'RelyingPartyWellKnownUnavailable' | 'FederatedKeyThumbprintMismatch' | 'InvalidFederatedSessionUrl' | 'InvalidFederatedKey' | 'TooManyRelyingOriginLabels' | 'BoundCookieSetForbidden' | 'NetError' | 'ProxyError' | 'EmptySessionConfig' | 'InvalidCredentialsConfig' | 'InvalidCredentialsType' | 'InvalidCredentialsEmptyName' | 'InvalidCredentialsCookie' | 'PersistentHttpError' | 'RegistrationAttemptedChallenge' | 'InvalidScopeOrigin' | 'ScopeOriginContainsPath' | 'RefreshInitiatorNotString' | 'RefreshInitiatorInvalidHostPattern' | 'InvalidScopeSpecification' | 'MissingScopeSpecificationType' | 'EmptyScopeSpecificationDomain' | 'EmptyScopeSpecificationPath' | 'InvalidScopeSpecificationType' | 'InvalidScopeIncludeSite' | 'MissingScopeIncludeSite' | 'FederatedNotAuthorizedByProvider' | 'FederatedNotAuthorizedByRelyingParty' | 'SessionProviderWellKnownMalformed' | 'SessionProviderWellKnownHasProviderOrigin' | 'RelyingPartyWellKnownMalformed' | 'RelyingPartyWellKnownHasRelyingOrigins' | 'InvalidFederatedSessionProviderSessionMissing' | 'InvalidFederatedSessionWrongProviderOrigin' | 'InvalidCredentialsCookieCreationTime' | 'InvalidCredentialsCookieName' | 'InvalidCredentialsCookieParsing' | 'InvalidCredentialsCookieUnpermittedAttribute' | 'InvalidCredentialsCookieInvalidDomain' | 'InvalidCredentialsCookiePrefix' | 'InvalidScopeRulePath' | 'InvalidScopeRuleHostPattern' | 'ScopeRuleOriginScopedHostPatternMismatch' | 'ScopeRuleSiteScopedHostPatternMismatch' | 'SigningQuotaExceeded' | 'InvalidConfigJson' | 'InvalidFederatedSessionProviderFailedToRestoreKey' | 'FailedToUnwrapKey' | 'SessionDeletedDuringRefresh');
 
         /**
          * Details about a failed device bound session network request.
@@ -14056,13 +14057,14 @@ export namespace Protocol {
 
         export const enum RefreshEventDetailsRefreshResult {
             Refreshed = 'Refreshed',
-            RefreshedAsWaiter = 'RefreshedAsWaiter',
             InitializedService = 'InitializedService',
             Unreachable = 'Unreachable',
             ServerError = 'ServerError',
             RefreshQuotaExceeded = 'RefreshQuotaExceeded',
             FatalError = 'FatalError',
             SigningQuotaExceeded = 'SigningQuotaExceeded',
+            RefreshedAsWaiter = 'RefreshedAsWaiter',
+            TransientSigningError = 'TransientSigningError',
         }
 
         /**
@@ -14073,7 +14075,7 @@ export namespace Protocol {
             /**
              * The result of a refresh.
              */
-            refreshResult: ('Refreshed' | 'RefreshedAsWaiter' | 'InitializedService' | 'Unreachable' | 'ServerError' | 'RefreshQuotaExceeded' | 'FatalError' | 'SigningQuotaExceeded');
+            refreshResult: ('Refreshed' | 'InitializedService' | 'Unreachable' | 'ServerError' | 'RefreshQuotaExceeded' | 'FatalError' | 'SigningQuotaExceeded' | 'RefreshedAsWaiter' | 'TransientSigningError');
             /**
              * If there was a fetch attempt, the result of that.
              */

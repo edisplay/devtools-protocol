@@ -1,7 +1,49 @@
 
 
+## Roll protocol to r1625959 — _2026-05-06T05:34:33.000Z_
+######  Diff: [`8feb4e1...1f60c69`](https://github.com/ChromeDevTools/devtools-protocol/compare/8feb4e1...1f60c69)
+
+```diff
+@@ domains/CSS.pdl:523 @@ experimental domain CSS
+         font-face
+         font-feature-values
+         font-palette-values
++        counter-style
+       # Subsection of font-feature-values, if this is a subsection.
+       optional enum subsection
+         # LINT.IfChange(FontVariantAlternatesFeatureType)
+diff --git a/pdl/domains/Network.pdl b/pdl/domains/Network.pdl
+index a32732d7..88ee5bcd 100644
+--- a/pdl/domains/Network.pdl
++++ b/pdl/domains/Network.pdl
+@@ -2162,6 +2162,7 @@ domain Network
+       Success
+       KeyError
+       SigningError
++      TransientSigningError
+       ServerRequestedTermination
+       InvalidSessionId
+       InvalidChallenge
+@@ -2260,13 +2261,14 @@ domain Network
+       # The result of a refresh.
+       enum refreshResult
+         Refreshed
+-        RefreshedAsWaiter
+         InitializedService
+         Unreachable
+         ServerError
+         RefreshQuotaExceeded
+         FatalError
+         SigningQuotaExceeded
++        RefreshedAsWaiter
++        TransientSigningError
+       # If there was a fetch attempt, the result of that.
+       optional DeviceBoundSessionFetchResult fetchResult
+       # The session display if there was a newly created session. This is populated
+```
+
 ## Roll protocol to r1624250 — _2026-05-02T05:22:23.000Z_
-######  Diff: [`470fb6a...0e0ce12`](https://github.com/ChromeDevTools/devtools-protocol/compare/470fb6a...0e0ce12)
+######  Diff: [`470fb6a...8feb4e1`](https://github.com/ChromeDevTools/devtools-protocol/compare/470fb6a...8feb4e1)
 
 ```diff
 @@ domains/Page.pdl:168 @@ domain Page
@@ -42882,18 +42924,4 @@ index 4754f17c..8dad9c98 100644
    # Emulates touch event from the mouse event parameters.
    experimental command emulateTouchFromMouseEvent
      parameters
-```
-
-## Roll protocol to r1167732 — _2023-07-08T04:27:37.000Z_
-######  Diff: [`f3b3b51...8b56da5`](https://github.com/ChromeDevTools/devtools-protocol/compare/f3b3b51...8b56da5)
-
-```diff
-@@ browser_protocol.pdl:9711 @@ experimental domain Storage
-       destinationReportingLimitReached
-       destinationGlobalLimitReached
-       destinationBothLimitsReached
-+      reportingOriginsPerSiteLimitReached
- 
-   # TODO(crbug.com/1458532): Add other Attribution Reporting events, e.g.
-   # trigger registration.
 ```
